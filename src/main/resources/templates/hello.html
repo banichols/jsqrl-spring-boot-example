@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>JSQRL User Account</title>
+</head>
+<body>
+<div th:if="${#httpServletRequest.userPrincipal.principal.firstName != null}" th:inline="text">
+    Hello [[${#httpServletRequest.userPrincipal.principal.firstName}]]!
+</div>
+<div th:if="${#httpServletRequest.userPrincipal.principal.firstName == null}">
+    Hello. It appears we do not have your user information. Please register!<br/>
+    <form method="post" action="/users">
+        First Name: <input type="text" name="firstName"/><br/>
+        E-mail: <input type="text" name="emailAddress"/><br/>
+        <input type="submit"/>
+    </form>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
