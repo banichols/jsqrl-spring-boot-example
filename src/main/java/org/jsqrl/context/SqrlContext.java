@@ -5,7 +5,7 @@ import org.jsqrl.controller.SqrlController;
 import org.jsqrl.service.InMemoryAuthenticationService;
 import org.jsqrl.service.InMemoryUserService;
 import org.jsqrl.service.SqrlNutService;
-import org.jsqrl.service.JSqrlServer;
+import org.jsqrl.server.JSqrlServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

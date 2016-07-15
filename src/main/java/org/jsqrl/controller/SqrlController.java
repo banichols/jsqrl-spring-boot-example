@@ -5,7 +5,7 @@ import org.jsqrl.config.SqrlConfig;
 import org.jsqrl.model.SqrlAuthResponse;
 import org.jsqrl.model.SqrlClientRequest;
 import org.jsqrl.service.SqrlAuthenticationService;
-import org.jsqrl.service.JSqrlServer;
+import org.jsqrl.server.JSqrlServer;
 import org.jsqrl.util.SqrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
