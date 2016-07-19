@@ -53,11 +53,13 @@ public class InMemoryAuthenticationService implements SqrlAuthenticationService 
     }
 
     @Override
-    public String getAuthenticatedSqrlIdentityKey(String nut) {
+    public String getAuthenticatedSqrlIdentityKey(String nut, String ipAddress) {
 
         Authorization auth = authTable.get(nut);
 
-        if(auth != null && auth.getAuthorized()){
+        if (auth != null
+                && auth.getAuthorized()
+                && auth.getIpAddress().equals(ipAddress)) {
             return auth.getIdentityKey();
         }
 

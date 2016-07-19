@@ -1,19 +1,18 @@
 package org.jsqrl.security;
 
 import org.jsqrl.model.SqrlUser;
-import org.jsqrl.service.InMemoryAuthenticationService;
 import org.jsqrl.service.SqrlAuthenticationService;
-import org.jsqrl.service.SqrlNutService;
 import org.jsqrl.service.SqrlUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,8 +36,10 @@ public class SqrlAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+
         String nut = (String) authentication.getCredentials();
-        String identityKey = authenticationService.getAuthenticatedSqrlIdentityKey(nut);
+        String identityKey = authenticationService.getAuthenticatedSqrlIdentityKey(nut, request.getRemoteAddr());
 
         if(identityKey != null){
             //We found an authenticated SQRL user
