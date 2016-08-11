@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>JSQRL Spring Boot Demo</title>
+    <div th:replace="common/imports"></div>
 </head>
 <body>
-<h1>Welcome to the JSQRL Spring Boot demo application</h1>
 
-<p>Click <a th:href="@{/hello}">here</a> to see your user account.</p>
+<div class="container">
+    <div th:replace="common/header"></div>
+    <div class="jumbotron">
+        <h2>JSQRL Spring Boot demo application</h2>
+        <p>Click <a th:href="@{/account}">here</a> to see your user account.</p>
+    </div>
+</div>
 </body>
 </html>

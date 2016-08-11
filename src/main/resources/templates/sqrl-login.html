@@ -3,25 +3,29 @@
 <head>
     <title>JSQRL Spring Boot Demo Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <div th:replace="common/imports"></div>
 </head>
 <body>
-<script src="js/jquery.min.js"></script>
-<script src="js/qrcode.min.js"></script>
 
-<form th:action="@{/login}" method="post" id="loginform">
-    <input type="hidden" name="password" th:value="${nut}"/>
-</form>
+<div class="container">
+    <div th:replace="common/header"></div>
 
-<h2>Login with SQRL</h2><br/><br/>
-<a th:href="'qrl://127.0.0.1:8080/sqrl?nut=' + ${nut} + '&amp;sfn='  + ${sfn}">
-    <div id="qrcode"></div>
-    <script th:inline="javascript">
-    /*<![CDATA[*/
-    new QRCode(document.getElementById("qrcode"), "qrl://127.0.0.1:8080/sqrl?nut=" + /*[[${nut}]] + '&sfn=' + [[${sfn}]]*/);
-    /*]]>*/
-    </script>
-</a>
-<br/>
+    <form th:action="@{/login}" method="post" id="loginform">
+        <input type="hidden" name="password" th:value="${nut}"/>
+    </form>
+
+    <h2>Login with SQRL</h2><br/><br/>
+    <a th:href="'qrl://127.0.0.1:8080/sqrl?nut=' + ${nut} + '&amp;sfn='  + ${sfn}">
+        <div id="qrcode"></div>
+        <script th:inline="javascript">
+        /*<![CDATA[*/
+        new QRCode(document.getElementById("qrcode"), "qrl://127.0.0.1:8080/sqrl?nut=" + /*[[${nut}]] + '&sfn=' + [[${sfn}]]*/);
+        /*]]>*/
+
+        </script>
+    </a>
+    <br/>
+</div>
 <script th:inline="javascript">
 
 setInterval(function()

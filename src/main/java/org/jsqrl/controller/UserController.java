@@ -23,7 +23,7 @@ public class UserController {
     public String updateUser(@ModelAttribute UserForm form){
         MyUser user = getAuthenticatedUser();
         userService.updateUserById(user.getId(), form.getFirstName(), form.getEmail());
-        return "hello";
+        return "account";
     }
 
     private MyUser getAuthenticatedUser(){
