@@ -1,5 +1,5 @@
 # jsqrl-spring-boot-example
-An example of using JSQRL with Spring Boot and Spring Security
+An example of using JSQRL with Spring Boot and Spring Security.
 
 This is currently a very simplistic example of how to use JSQRL with Spring Security. It's functional, but not yet polished.
 

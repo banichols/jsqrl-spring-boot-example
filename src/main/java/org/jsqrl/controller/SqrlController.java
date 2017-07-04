@@ -5,7 +5,6 @@ import org.jsqrl.config.SqrlConfig;
 import org.jsqrl.model.SqrlAuthResponse;
 import org.jsqrl.model.SqrlClientRequest;
 import org.jsqrl.server.JSqrlServer;
-import org.jsqrl.service.SqrlAuthenticationService;
 import org.jsqrl.util.SqrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,16 +31,13 @@ public class SqrlController {
     private SqrlConfig config;
 
     @Autowired
-    private JSqrlServer sqrlService;
-
-    @Autowired
-    private SqrlAuthenticationService authenticationService;
+    private JSqrlServer jSqrlServer;
 
     @RequestMapping("/login")
     public String login(Model model,
                         HttpServletRequest request) {
 
-        String sqrlNut = sqrlService.createAuthenticationRequest(request.getRemoteAddr(), true);
+        String sqrlNut = jSqrlServer.createAuthenticationRequest(request.getRemoteAddr(), true);
 
         model.addAttribute("nut", sqrlNut);
         model.addAttribute("sfn", SqrlUtil.unpaddedBase64UrlEncoded(config.getSfn()));
@@ -57,7 +53,7 @@ public class SqrlController {
 
         log.debug("Client ({}): {}", httpRequest.getRemoteAddr(), request.getDecodedClientData());
 
-        SqrlAuthResponse sqrlAuthResponse = sqrlService.handleClientRequest(request, nut, httpRequest.getRemoteAddr());
+        SqrlAuthResponse sqrlAuthResponse = jSqrlServer.handleClientRequest(request, nut, httpRequest.getRemoteAddr());
 
         return new ResponseEntity(sqrlAuthResponse.toEncodedString(), HttpStatus.OK);
     }
@@ -65,7 +61,7 @@ public class SqrlController {
     @RequestMapping(value = "/authcheck", method = RequestMethod.GET)
     public ResponseEntity checkAuthentication(@RequestParam("nut") String nut,
                                               HttpServletRequest httpRequest) {
-        if (authenticationService.getAuthenticatedSqrlIdentityKey(nut, httpRequest.getRemoteAddr()) != null) {
+        if (jSqrlServer.checkAuthenticationStatus(nut, httpRequest.getRemoteAddr())) {
             //User is authenticated
             return new ResponseEntity(HttpStatus.RESET_CONTENT);
         } else{

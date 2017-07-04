@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/home",
                         "/sqrl",
                         "/js/*",
+                        "/css/*",
                         "/authcheck",
                         "/sqrl-login").permitAll()
                 .anyRequest().authenticated()
